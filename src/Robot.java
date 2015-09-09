@@ -62,7 +62,10 @@ public class Robot {
 		}
 		
 		// deduct points
-		points -= board[loc.x][loc.y];
+		if(offBoard())
+			points -= 100;
+		else
+			points -= board[loc.x][loc.y];
 	}
 	
 	/**
@@ -84,8 +87,14 @@ public class Robot {
 			loc.move(-1, 0);
 			break;
 		}
+		
 		// deduct poitns
-		points -= 3;
+		if(offBoard()){
+			points -= 100;
+			return;
+		}
+		else
+			points -= 3;
 		
 		// must do a forward move after bash
 		forward();
@@ -135,5 +144,25 @@ public class Robot {
 		
 		// deduct points
 		points -= (int)(Math.ceil((1.0/3.0)*(board[loc.x][loc.y])));
+	}
+	
+	/**
+	 * Returns the points the robot has
+	 * @return
+	 */
+	public int getPoints(){
+		return points;
+	}
+	
+	/**
+	 * Returns whether or not the robot is still on the board
+	 * 
+	 * @return
+	 */
+	public boolean offBoard(){
+		if(loc.x < 0 || loc.y < 0 || loc.x >= board.length || loc.y >= board[0].length)
+			return true;
+		else
+			return false;
 	}
 }
