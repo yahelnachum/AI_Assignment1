@@ -88,7 +88,7 @@ public class Robot {
 			break;
 		}
 		
-		// deduct poitns
+		// deduct points
 		if(offBoard()){
 			points -= 100;
 			return;
