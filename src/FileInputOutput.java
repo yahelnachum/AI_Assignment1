@@ -3,10 +3,6 @@ import java.io.*;
 // skeleton of file input reader is taken from website in the next comment line
 // http://stackoverflow.com/questions/4716503/best-way-to-read-a-text-file-in-java
 public class FileInputOutput {
-
-	// special characters in boards
-	static final int GOAL = -1;
-	static final int START = -2;
 	
 	/**
 	 * Takes in a filename and creates a 2d 
@@ -51,9 +47,9 @@ public class FileInputOutput {
 						
 						// check to see if the character is a special state (Start and Goal)
 						if(character == 'G')
-							board[i][j] = GOAL;
+							board[i][j] = State.GOAL;
 						else if(character == 'S')
-							board[i][j] = START;
+							board[i][j] = State.START;
 						else
 							board[i][j] = character - '0';
 					}
