@@ -25,6 +25,16 @@ public class Robot {
 	int points;
 	
 	/**
+	 * visited nodes
+	 */
+	Point [] visitedNodes;
+	
+	/**
+	 * expanded nodes
+	 */
+	Point [] expandedNodes;
+	
+	/**
 	 * Creates a robot to traverse over the terrain complexity board given.
 	 * 
 	 * @param init_board Describes the terrain complexity over the whole board.
@@ -35,6 +45,8 @@ public class Robot {
 		loc = init_loc;
 		dir = Direction.NORTH;
 		points = 0;
+		visitedNodes[visitedNodes.length] = init_loc;
+		expandedNodes[expandedNodes.length] = init_loc;
 	}
 	
 	// moves robot forward in the direction it is facing
@@ -172,5 +184,15 @@ public class Robot {
 	 */
 	public Point getPoint(){
 		return loc;
+	}
+	
+	/**
+	 * Moves robot to destination with as little cost as possible
+	 * @param heuristic
+	 */
+	public void traverse(int heuristic){
+		//need to expand nodes and check those nodes' heuristic
+		//need to check if the robot has been to any of those nodes
+		//need to check if any better nodes have been expanded
 	}
 }
