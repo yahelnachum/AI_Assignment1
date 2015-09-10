@@ -1,6 +1,6 @@
 import java.lang.Math.*;
 
-public class heuristics {
+public class Heuristics {
 	public int heuristic1(int currentlocX, int currentlocY, int goallocX, int goallocY ){
 		return 0;
 	}
