@@ -5,14 +5,20 @@ import java.util.List;
   implements a generic A* search algorithm. The AStarNode
   class should be subclassed to provide searching capability.
 */
-public abstract class AStarNode implements Comparable {
+public class AStarNode implements Comparable {
 	
   AStarNode pathParent;
   Robot currentRobot;
   float costFromStart;
   float estimatedCostToGoal;
 
-
+  AStarNode(AStarNode path, Robot robot, float cost, float estimatedCost){
+	  pathParent = path;
+	  currentRobot = robot;
+	  costFromStart = cost;
+	  estimatedCostToGoal = estimatedCost;
+  }
+  
   public float getCost() {
     return costFromStart + estimatedCostToGoal;
   }

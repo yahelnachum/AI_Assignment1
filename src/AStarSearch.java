@@ -8,6 +8,7 @@ import java.util.*;
 public class AStarSearch {
 
 
+	
   /**
     A simple priority list, also called a priority queue.
     Objects in the list are ordered by their priority,
@@ -31,8 +32,8 @@ public class AStarSearch {
   /**
     Construct the path, not including the start node.
   */
-  protected List constructPath(AStarNode node) {
-    LinkedList path = new LinkedList();
+  protected List<AStarNode> constructPath(AStarNode node) {
+    LinkedList<AStarNode> path = new LinkedList<AStarNode>();
     while (node.pathParent != null) {
       path.addFirst(node);
       node = node.pathParent;
@@ -46,10 +47,10 @@ public class AStarSearch {
     of AStarNodes is returned, or null if the path is not
     found. 
   */
-  public List findPath(AStarNode startNode, AStarNode goalNode) {
+  public List<AStarNode> findPath(AStarNode startNode, AStarNode goalNode) {
 
     PriorityList openList = new PriorityList();
-    LinkedList closedList = new LinkedList();
+    LinkedList<AStarNode> closedList = new LinkedList<AStarNode>();
 
     startNode.costFromStart = 0;
     startNode.estimatedCostToGoal =
@@ -64,7 +65,7 @@ public class AStarSearch {
         return constructPath(goalNode);
       }
 
-      List neighbors = node.getNeighbors();
+      List<AStarNode> neighbors = node.getNeighbors();
       for (int i=0; i<neighbors.size(); i++) {
         AStarNode neighborNode =
           (AStarNode)neighbors.get(i);
