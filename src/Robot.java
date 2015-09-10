@@ -165,4 +165,12 @@ public class Robot {
 		else
 			return false;
 	}
+	
+	/**
+	 * Returns the location of the robot
+	 * @return 
+	 */
+	public Point getPoint(){
+		return loc;
+	}
 }
