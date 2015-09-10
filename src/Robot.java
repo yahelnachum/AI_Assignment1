@@ -30,11 +30,11 @@ public class Robot {
 	 * @param init_board Describes the terrain complexity over the whole board.
 	 * @param init_loc Gives the robot an initial location
 	 */
-	Robot(int[][] init_board, Point init_loc){
+	Robot(int[][] init_board, Point init_loc, int init_points){
 		board = init_board;
 		loc = init_loc;
 		dir = Direction.NORTH;
-		points = 0;
+		points = init_points;
 	}
 	
 	// moves robot forward in the direction it is facing
@@ -45,59 +45,61 @@ public class Robot {
 	 * points deducted is equal to the number in the 
 	 * square that the robot is entering
 	 */
-	public void forward(){
+	public Robot forward(){
+		Robot nextRobot = this;
 		switch(dir){
 		case NORTH:
-			loc.move(0, 1);
+			nextRobot.loc.move(0, 1);
 			break;
 		case SOUTH:
-			loc.move(0, -1);
+			nextRobot.loc.move(0, -1);
 			break;
 		case EAST:
-			loc.move(1, 0);
+			nextRobot.loc.move(1, 0);
 			break;
 		case WEST:
-			loc.move(-1, 0);
+			nextRobot.loc.move(-1, 0);
 			break;
 		}
 		
 		// deduct points
 		if(offBoard())
-			points -= 100;
+			nextRobot.points -= 100;
 		else
-			points -= board[loc.x][loc.y];
+			nextRobot.points -= board[loc.x][loc.y];
+		return nextRobot;
 	}
 	
 	/**
 	 * bashes robot and then performs forward move
 	 * points deducted is equal to 3 no matter the terrain complexity
 	 */
-	public void bash(){
+	public Robot bash(){
+		Robot nextRobot = this;
 		switch(dir){
 		case NORTH:
-			loc.move(0, 1);
+			nextRobot.loc.move(0, 1);
 			break;
 		case SOUTH:
-			loc.move(0, -1);
+			nextRobot.loc.move(0, -1);
 			break;
 		case EAST:
-			loc.move(1, 0);
+			nextRobot.loc.move(1, 0);
 			break;
 		case WEST:
-			loc.move(-1, 0);
+			nextRobot.loc.move(-1, 0);
 			break;
 		}
 		
 		// deduct points
-		if(offBoard()){
-			points -= 100;
-			return;
-		}
+		if(offBoard())
+			nextRobot.points -= 100;
 		else
-			points -= 3;
+			nextRobot.points -= 3;
 		
 		// must do a forward move after bash
-		forward();
+		nextRobot.forward();
+		return nextRobot;
 	}
 	
 	/**
@@ -106,44 +108,46 @@ public class Robot {
 	 * 
 	 * @param turn The direction to turn the robot in.
 	 */
-	public void turn(Turn turn){
+	public Robot turn(Turn turn){
+		Robot nextRobot = this;
 		switch(turn){
 		case CLOCKWISE:
 			switch(dir){
 			case NORTH:
-				dir = Direction.EAST;
+				nextRobot.dir = Direction.EAST;
 				break;
 			case SOUTH:
-				dir = Direction.WEST;
+				nextRobot.dir = Direction.WEST;
 				break;
 			case EAST:
-				dir = Direction.SOUTH;
+				nextRobot.dir = Direction.SOUTH;
 				break;
 			case WEST:
-				dir = Direction.NORTH;
+				nextRobot.dir = Direction.NORTH;
 				break;
 			}
 			break;
 		case COUNTER_CLOCKWISE:
 		switch(dir){
 			case NORTH:
-				dir = Direction.WEST;
+				nextRobot.dir = Direction.WEST;
 				break;
 			case SOUTH:
-				dir = Direction.EAST;
+				nextRobot.dir = Direction.EAST;
 				break;
 			case EAST:
-				dir = Direction.NORTH;
+				nextRobot.dir = Direction.NORTH;
 				break;
 			case WEST:
-				dir = Direction.SOUTH;
+				nextRobot.dir = Direction.SOUTH;
 				break;
 			}
 			break;
 		}
 		
 		// deduct points
-		points -= (int)(Math.ceil((1.0/3.0)*(board[loc.x][loc.y])));
+		nextRobot.points -= (int)(Math.ceil((1.0/3.0)*(board[loc.x][loc.y])));
+		return nextRobot;
 	}
 	
 	/**
