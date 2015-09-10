@@ -2,3 +2,8 @@
 /Day.class
 /Direction.class
 /Turn.class
+/FileToBoard.class
+/FileInputOutput.class
+/Main.class
+/sample board.txt
+/State.class
