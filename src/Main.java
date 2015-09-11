@@ -8,6 +8,13 @@ public class Main {
 		// TODO Auto-generated method stub
 		// System.out.printf(FileInputOutput.fileToBoard("sample board.txt"));
 		int[][] board = FileInputOutput.fileToBoard("sample board.txt");
+		int[][] board1 = FileInputOutput.fileToBoard("sample board1.txt");
+		
+		AStarSearch searcher = new AStarSearch();
+		
+		searcher.search(board);
+		searcher.search(board1);
+		
 		// Point tempPoint = new Point(0,0);
 		/*
 		 * AStarNode startNode = new AStarNode(null, new Robot(board, tempPoint,
@@ -15,7 +22,7 @@ public class Main {
 		 * tempPoint, -1), 0, 0);
 		 */
 
-		Point start = new Point(0, 0);
+		/*Point start = new Point(0, 0);
 		Point goal = new Point(0, 0);
 
 		for (int j = 0; j < board[0].length; j++) {
@@ -131,7 +138,7 @@ public class Main {
 		System.out.printf(goalRobo.path + "\n");
 		System.out.printf(goalRobo.r.getPoints() + "");
 
-		// AStarNode.findGoalPath(a, goal);
+		// AStarNode.findGoalPath(a, goal);*/
 
 	}
 }
