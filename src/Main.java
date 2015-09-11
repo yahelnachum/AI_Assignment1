@@ -7,7 +7,7 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// System.out.printf(FileInputOutput.fileToBoard("sample board.txt"));
-		int[][] board = FileInputOutput.fileToBoard("sample board1.txt");
+		int[][] board = FileInputOutput.fileToBoard("sample board.txt");
 		// Point tempPoint = new Point(0,0);
 		/*
 		 * AStarNode startNode = new AStarNode(null, new Robot(board, tempPoint,
@@ -122,6 +122,9 @@ public class Main {
 				visited.add(q);
 			}
 			// }
+		}
+		if(goalRobo.r.loc.equals(goal)){
+			goalRobo.r.points+=100;
 		}
 		System.out.printf("found\n");
 		// System.out.printf(list.get(0).path + "\n");

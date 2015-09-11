@@ -63,9 +63,7 @@ public class AStarNode implements Comparable<AStarNode>{
 			children.get(3).r.turn(Turn.COUNTER_CLOCKWISE);
 			children.get(3).path += "Counter_Clockwise ";
 			
-			if(r.loc.equals(goal)){
-				r.points+=100;
-			}
+		
 		}
 	}
 
