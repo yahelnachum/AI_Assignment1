@@ -25,6 +25,8 @@ public class AStarNode implements Comparable<AStarNode> {
 	AStarNode(Robot r){
 		this.currentRobot = r;
 		this.pathParent = null;
+		this.costFromStart = 0;
+		this.estimatedCostToGoal = 0;
 	}
   
   public int getCost() {
@@ -42,20 +44,22 @@ public class AStarNode implements Comparable<AStarNode> {
 
 
   /**
-    Gets the cost between this node and the specified
-    adjacent (AKA "neighbor" or "child") node.
+    Gets the cost between this node and the adjacent node.
   */
   public int getCost(AStarNode node){
-	  
-	  return node.currentRobot.points;
+	  Point loc = node.currentRobot.loc;
+	 // System.out.println(loc.x + " " + loc.y + " " + node.currentRobot.board[loc.x][loc.y]);
+	  if (node.currentRobot.offBoard(loc)) return 100;
+	  if (node.action.equals("Forward")) return node.currentRobot.board[loc.x][loc.y];
+	  if (node.action.equals("CW") || node.action.equals("CCW")) return (int) Math.ceil(node.currentRobot.board[loc.x][loc.y] / 3);
+	  if (node.action.equals("Bash")) return (3 + node.currentRobot.board[loc.x][loc.y]);
+	  return node.currentRobot.points - this.currentRobot.points;
   }
 
 
   /**
     Gets the estimated cost between this node and the
-    specified node. The estimated cost should never exceed
-    the true cost. The better the estimate, the more
-    effecient the search.
+    goal node.
   */
   public int getEstimatedCost(AStarNode node){
 	  
@@ -95,20 +99,20 @@ public class AStarNode implements Comparable<AStarNode> {
 	
 	neighbors.get(0).movingForward(neighbors.get(0));
 	neighbors.get(0).action = "Forward";
-	//System.out.println("Forward " + neighbors.get(0).currentRobot.loc + neighbors.get(0).currentRobot.points);
+	//System.out.println("Forward " + neighbors.get(0).currentRobot.loc.x + " " + neighbors.get(0).currentRobot.loc.y + " " + neighbors.get(0).currentRobot.points);
 
 	neighbors.get(1).bashing(neighbors.get(1));
-	neighbors.get(1).action = "Bash";
-	//System.out.println("Bash " + neighbors.get(1).currentRobot.loc);
+	neighbors.get(1).action = "Bash Forward";
+	//System.out.println("Bash " + neighbors.get(1).currentRobot.loc.x + " " + neighbors.get(1).currentRobot.loc.y);
 
 	
 	neighbors.get(2).turnClockWise(neighbors.get(2)); 
 	neighbors.get(2).action = "CW";
-	//System.out.println("CW " + neighbors.get(2).currentRobot.loc);
+	//System.out.println("CW " + neighbors.get(2).currentRobot.loc.x + " " + neighbors.get(2).currentRobot.loc.y);
 	
 	neighbors.get(3).turnCounterClockWise(neighbors.get(3)); 
 	neighbors.get(3).action = "CCW";
-	//System.out.println("CCW " + neighbors.get(3).currentRobot.loc);
+	//System.out.println("CCW " + neighbors.get(3).currentRobot.loc.x + " " + neighbors.get(3).currentRobot.loc.y);
 	
 	return neighbors;
   }

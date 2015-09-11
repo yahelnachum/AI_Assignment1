@@ -1,5 +1,4 @@
 
-import java.awt.Point;
 import java.lang.Math;
 
 public class Robot {
@@ -25,7 +24,7 @@ public class Robot {
 	int points;
 	
 	Robot(Robot r){
-		this.loc = new Point(r.loc);
+		this.loc = new Point(r.loc.x, r.loc.y, r.loc.cost);
 		this.dir = r.dir;
 		this.board = r.board;
 		this.points = r.points;
@@ -39,10 +38,10 @@ public class Robot {
 	 */
 	Robot(int[][] init_board, Point init_loc, int init_points){
 		
-		board = init_board;
-		loc = init_loc;
-		dir = Direction.NORTH;
-		points = init_points;
+		this.board = init_board;
+		this.loc = init_loc;
+		this.dir = Direction.NORTH;
+		this.points = init_points;
 		//System.out.printf("x: %d, y: %d\n", loc.x, loc.y);
 	}
 	
@@ -58,23 +57,23 @@ public class Robot {
 		Robot nextRobot = this;
 		switch(dir){
 		case NORTH:
-			nextRobot.loc.move(loc.x, loc.y-1);
+			nextRobot.loc.move(loc.x - 1, loc.y);
 			break;
 		case SOUTH:
-			nextRobot.loc.move(loc.x, loc.y+1);
+			nextRobot.loc.move(loc.x + 1, loc.y);
 			break;
 		case EAST:
-			nextRobot.loc.move(loc.x+1, loc.y);
+			nextRobot.loc.move(loc.x, loc.y + 1);
 			break;
 		case WEST:
-			nextRobot.loc.move(loc.x-1, loc.y);
+			nextRobot.loc.move(loc.x, loc.y - 1);
 			break;
 		}
 		
 		//System.out.printf("forward\n");
 		//System.out.printf("x: %d, y: %d\n", loc.x, loc.y);
 		// deduct points
-		if(offBoard()){
+		if(offBoard(this.loc)){
 			nextRobot.points -= 100;
 			//System.out.printf("off board\n");
 		}
@@ -94,23 +93,23 @@ public class Robot {
 		Robot nextRobot = this;
 		switch(dir){
 		case NORTH:
-			nextRobot.loc.move(loc.x, loc.y-1);
+			nextRobot.loc.move(loc.x - 1, loc.y);
 			break;
 		case SOUTH:
-			nextRobot.loc.move(loc.x, loc.y+1);
+			nextRobot.loc.move(loc.x + 1, loc.y);
 			break;
 		case EAST:
-			nextRobot.loc.move(loc.x+1, loc.y);
+			nextRobot.loc.move(loc.x, loc.y + 1);
 			break;
 		case WEST:
-			nextRobot.loc.move(loc.x-1, loc.y);
+			nextRobot.loc.move(loc.x, loc.y - 1);
 			break;
 		}
 		
 		//System.out.printf("bash\n");
 		//System.out.printf("x: %d, y: %d\n", loc.x, loc.y);
 		// deduct points
-		if(offBoard()){
+		if(offBoard(this.loc)){
 			//System.out.printf("offboard\n");
 			nextRobot.points -= 100;
 		}
@@ -130,7 +129,7 @@ public class Robot {
 	 */
 	public Robot turn(Turn turn){
 		Robot nextRobot = this;
-		if (offBoard()){
+		if (offBoard(this.loc)){
 			return null;
 		}
 		switch(turn){
@@ -195,7 +194,7 @@ public class Robot {
 	 * 
 	 * @return
 	 */
-	public boolean offBoard(){
+	public boolean offBoard(Point loc){
 		if(loc.x < 0 || loc.y < 0 || loc.x >= board.length || loc.y >= board[0].length)
 			return true;
 		else

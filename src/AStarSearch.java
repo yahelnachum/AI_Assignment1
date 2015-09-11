@@ -19,7 +19,7 @@ public class AStarSearch {
 
     public void add(Comparable<AStarNode> object) {
       for (int i=0; i<size(); i++) {
-        if (object.compareTo(get(i)) <= 0) {
+        if (object.compareTo(get(i)) >= 0) {
           add(i, (AStarNode) object);
           return;
         }
@@ -59,13 +59,18 @@ public class AStarSearch {
     openList.add(startNode);
     
     System.out.println(goalNode.currentRobot.loc);
+    int count = 0;
     while (!openList.isEmpty()) {
       AStarNode node = (AStarNode)openList.removeFirst();
-      System.out.println(node.action);
-      if (node.currentRobot.loc == goalNode.currentRobot.loc || node.currentRobot.loc.y < -1) {
+     // count++;
+      if (count == 5){
+    	  return null;
+      }
+      System.out.println(node.action + " " + node.costFromStart + " " + node.currentRobot.loc.x + " " + node.currentRobot.loc.y);
+      if (node.currentRobot.loc.x == goalNode.currentRobot.loc.x && node.currentRobot.loc.y == goalNode.currentRobot.loc.y) {
         // construct the path from start to goal
     	System.out.println(100);
-        return constructPath(goalNode);
+        return constructPath(node);
       }
 
       List<AStarNode> neighbors = node.getNeighbors();
@@ -73,17 +78,19 @@ public class AStarSearch {
       for (int i=0; i < neighbors.size(); i++) {
         AStarNode neighborNode = (AStarNode)neighbors.get(i);
         boolean isOpen = openList.contains(neighborNode);
-        boolean isClosed =
-          closedList.contains(neighborNode);
-        int costFromStart = node.costFromStart +
-          node.getCost(neighborNode);
-        System.out.println("Cost from start :" + costFromStart + "Neighbor cost from start" + neighborNode.costFromStart + " " + neighborNode.action);
+        boolean isClosed = closedList.contains(neighborNode);
+        
+        int costFromStart = node.costFromStart + node.getCost(neighborNode);
+        
+        System.out.println("Cost from start :" + costFromStart + " Neighbor cost from node " + node.getCost(neighborNode) + " " + neighborNode.action);
         // check if the neighbor node has not been
         // traversed or if a shorter path to this
         // neighbor node is found.
+        if (neighborNode.currentRobot.offBoard(neighborNode.currentRobot.loc)) continue;
         if ((!isOpen && !isClosed) ||
-          costFromStart > neighborNode.costFromStart)
+          costFromStart < neighborNode.costFromStart)
         {
+          //System.out.println("Find a new path" + neighborNode.action);
           neighborNode.pathParent = node;
           neighborNode.costFromStart = costFromStart;
           neighborNode.estimatedCostToGoal = neighborNode.getEstimatedCost(goalNode);
