@@ -33,13 +33,16 @@ public class Main {
 		ArrayList<AStarNode> list = new ArrayList<AStarNode>();
 		list.add(a);
 
-		while (!(list.get(0).r.loc.x == goal.x && list.get(0).r.loc.y == goal.y)) {
-			/*if (list.size() > 1) {
+		int z = 0;
+		while ( !list.isEmpty() && !(list.get(0).r.loc.x == goal.x && list.get(0).r.loc.y == goal.y)) {
+		
+			z++;
+			//if(z%100 == 0)
 				Collections.sort(list);
-			}*/
 			AStarNode b = list.remove(0);
 			b.search();
 			list.addAll(b.children);
+			//System.out.printf("%d\n", list.size());
 		}
 		System.out.printf("found\n");
 		System.out.printf(list.get(0).path + "\n");
