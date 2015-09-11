@@ -1,4 +1,5 @@
 import java.util.*;
+import java.lang.*;
 
 /**
   The AStarNode class, along with the AStarSearch class,
@@ -11,19 +12,20 @@ public class AStarNode implements Comparable<AStarNode> {
   Robot currentRobot;
   int costFromStart;
   int estimatedCostToGoal;
-
-  AStarNode(AStarNode path, Robot robot, int cost, int estimatedCost){
-	  this.pathParent = path;
-	  this.currentRobot = robot;
-	  this.costFromStart = cost;
-	  this.estimatedCostToGoal = estimatedCost;
+  String action;
+  
+  AStarNode(AStarNode newNode){
+	  this.pathParent = newNode.pathParent;
+	  this.currentRobot = new Robot(newNode.currentRobot);
+	  this.costFromStart = newNode.costFromStart;
+	  this.estimatedCostToGoal = newNode.estimatedCostToGoal;
+	  this.action = newNode.action;
   }
   
-  
-  AStarNode AStarNodeClone (AStarNode clonePath, Robot cloneRobot, int cloneCost, int cloneEstimatedCost){
-	  AStarNode clone = new AStarNode(clonePath, cloneRobot.cloneRobot(cloneRobot.board,  cloneRobot.loc,  cloneRobot.points), cloneCost, cloneEstimatedCost);
-	  return clone;
-  }
+	AStarNode(Robot r){
+		this.currentRobot = r;
+		this.pathParent = null;
+	}
   
   public int getCost() {
     return costFromStart + estimatedCostToGoal;
@@ -45,7 +47,7 @@ public class AStarNode implements Comparable<AStarNode> {
   */
   public int getCost(AStarNode node){
 	  
-	  return 0;
+	  return node.currentRobot.points;
   }
 
 
@@ -57,39 +59,58 @@ public class AStarNode implements Comparable<AStarNode> {
   */
   public int getEstimatedCost(AStarNode node){
 	  
-	  return node.currentRobot.points;
+	  return 0;
   }
 
-
+  public AStarNode movingForward(AStarNode node){
+	  node.currentRobot.forward();
+	  return node;
+  }
+  
+  public AStarNode bashing(AStarNode node){
+	  node.currentRobot.bash();
+	  return node;
+  }
+  
+  public AStarNode turnClockWise(AStarNode node){
+	  node.currentRobot.turn(Turn.CLOCKWISE);
+	  return node;
+  }
+  
+  public AStarNode turnCounterClockWise(AStarNode node){
+	  node.currentRobot.turn(Turn.COUNTER_CLOCKWISE);
+	  return node;
+  }
+  
   /**
     Gets the children (AKA "neighbors" or "adjacent nodes")
     of this node.
   */
   public  List<AStarNode> getNeighbors(){
 	List<AStarNode> neighbors = new ArrayList<AStarNode>();
+	//System.out.println(this.currentRobot.points);
+	for (int i = 0; i < 4; i++){
+		neighbors.add(new AStarNode(this));
+	}
 	
-	
-	AStarNode nextNeighbor = AStarNodeClone(this.pathParent,this.currentRobot, this.costFromStart, this.estimatedCostToGoal);
-	nextNeighbor.currentRobot = nextNeighbor.currentRobot.forward();
-    System.out.println("Forward" + nextNeighbor.currentRobot.loc);
-	neighbors.add(nextNeighbor);
+	neighbors.get(0).movingForward(neighbors.get(0));
+	neighbors.get(0).action = "Forward";
+	//System.out.println("Forward " + neighbors.get(0).currentRobot.loc + neighbors.get(0).currentRobot.points);
 
-	nextNeighbor = AStarNodeClone(this.pathParent,this.currentRobot, this.costFromStart, this.estimatedCostToGoal);
-	nextNeighbor.currentRobot = nextNeighbor.currentRobot.bash();
-    System.out.println("Bash" + nextNeighbor.currentRobot.loc);
-	neighbors.add(nextNeighbor);
-	
-	nextNeighbor = AStarNodeClone(this.pathParent,this.currentRobot, this.costFromStart, this.estimatedCostToGoal);
-	Turn nextTurn = Turn.CLOCKWISE;
-	nextNeighbor.currentRobot = nextNeighbor.currentRobot.turn(nextTurn);
-    System.out.println("CLOCKWISE" + nextNeighbor.currentRobot.loc);
-	neighbors.add(nextNeighbor);
-	
-	nextNeighbor = AStarNodeClone(this.pathParent,this.currentRobot, this.costFromStart, this.estimatedCostToGoal);	nextTurn = Turn.COUNTER_CLOCKWISE;
-	nextNeighbor.currentRobot = nextNeighbor.currentRobot.turn(nextTurn);
-    System.out.println("CW" + nextNeighbor.currentRobot.loc);
-	neighbors.add(nextNeighbor);
+	neighbors.get(1).bashing(neighbors.get(1));
+	neighbors.get(1).action = "Bash";
+	//System.out.println("Bash " + neighbors.get(1).currentRobot.loc);
 
+	
+	neighbors.get(2).turnClockWise(neighbors.get(2)); 
+	neighbors.get(2).action = "CW";
+	//System.out.println("CW " + neighbors.get(2).currentRobot.loc);
+	
+	neighbors.get(3).turnCounterClockWise(neighbors.get(3)); 
+	neighbors.get(3).action = "CCW";
+	//System.out.println("CCW " + neighbors.get(3).currentRobot.loc);
+	
 	return neighbors;
   }
+  
 }  

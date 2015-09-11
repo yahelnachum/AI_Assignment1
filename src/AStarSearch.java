@@ -61,14 +61,15 @@ public class AStarSearch {
     System.out.println(goalNode.currentRobot.loc);
     while (!openList.isEmpty()) {
       AStarNode node = (AStarNode)openList.removeFirst();
-      System.out.println(node.currentRobot.loc);
-      if (node.currentRobot.loc == goalNode.currentRobot.loc || node.currentRobot.loc.y < 0) {
+      System.out.println(node.action);
+      if (node.currentRobot.loc == goalNode.currentRobot.loc || node.currentRobot.loc.y < -1) {
         // construct the path from start to goal
     	System.out.println(100);
         return constructPath(goalNode);
       }
 
       List<AStarNode> neighbors = node.getNeighbors();
+      
       for (int i=0; i < neighbors.size(); i++) {
         AStarNode neighborNode = (AStarNode)neighbors.get(i);
         boolean isOpen = openList.contains(neighborNode);
@@ -76,17 +77,16 @@ public class AStarSearch {
           closedList.contains(neighborNode);
         int costFromStart = node.costFromStart +
           node.getCost(neighborNode);
-
+        System.out.println("Cost from start :" + costFromStart + "Neighbor cost from start" + neighborNode.costFromStart + " " + neighborNode.action);
         // check if the neighbor node has not been
         // traversed or if a shorter path to this
         // neighbor node is found.
         if ((!isOpen && !isClosed) ||
-          costFromStart < neighborNode.costFromStart)
+          costFromStart > neighborNode.costFromStart)
         {
           neighborNode.pathParent = node;
           neighborNode.costFromStart = costFromStart;
-          neighborNode.estimatedCostToGoal =
-            neighborNode.getEstimatedCost(goalNode);
+          neighborNode.estimatedCostToGoal = neighborNode.getEstimatedCost(goalNode);
           if (isClosed) {
             closedList.remove(neighborNode);
           }

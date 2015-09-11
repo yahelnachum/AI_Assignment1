@@ -8,22 +8,22 @@ public class Main {
 		//System.out.printf(FileInputOutput.fileToBoard("sample board.txt"));
 		int [][] board = FileInputOutput.fileToBoard("sample board.txt");
 		Point tempPoint = new Point(0,0);
-		AStarNode startNode = new AStarNode(null, new Robot(board, tempPoint, -1),0 ,0);
-		AStarNode endNode = new AStarNode(null , new Robot(board, tempPoint, -1), 0, 0);
+		AStarNode startNode = new AStarNode(new Robot(board, tempPoint, -1));
+		AStarNode endNode = new AStarNode(new Robot(board, tempPoint, -1));
 		
 		for(int j = 0; j < board[0].length; j++){
 			for(int i = 0; i < board.length; i++){
 				if (board[i][j] == -2){
 					Point startLoc = new Point(i,j);
-					Robot startRobot = new Robot (board, startLoc, -2);
-					startNode = new AStarNode(null, startRobot, 0, 0);
+					Robot startRobot = new Robot (board, startLoc, 0);
+					startNode = new AStarNode(startRobot);
 				}
 				
 				if (board[i][j] == -1){
 					Point endLoc = new Point(i,j);
 					//System.out.println(endLoc);
 					Robot endRobot = new Robot(board, endLoc, -1);
-					endNode = new AStarNode(null , endRobot, 0, 0);
+					endNode = new AStarNode(endRobot);
 				}
 				
 				System.out.printf("%3d", board[i][j]);

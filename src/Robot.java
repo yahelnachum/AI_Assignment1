@@ -24,6 +24,13 @@ public class Robot {
 	 */
 	int points;
 	
+	Robot(Robot r){
+		this.loc = new Point(r.loc);
+		this.dir = r.dir;
+		this.board = r.board;
+		this.points = r.points;
+	}
+	
 	/**
 	 * Creates a robot to traverse over the terrain complexity board given.
 	 * 
@@ -31,15 +38,14 @@ public class Robot {
 	 * @param init_loc Gives the robot an initial location
 	 */
 	Robot(int[][] init_board, Point init_loc, int init_points){
-		this.board = init_board;
-		this.loc = init_loc;
-		this.dir = Direction.NORTH;
-		this.points = init_points;
+		
+		board = init_board;
+		loc = init_loc;
+		dir = Direction.NORTH;
+		points = init_points;
+		//System.out.printf("x: %d, y: %d\n", loc.x, loc.y);
 	}
 	
-	Robot cloneRobot(int[][] cloneBoard, Point cloneLoc, int clonePoints){
-		return new Robot(cloneBoard, cloneLoc, clonePoints);
-	}
 	// moves robot forward in the direction it is facing
 	// points deducted is equal to the number in the square that the robot is entering
 	/**
@@ -52,22 +58,29 @@ public class Robot {
 		Robot nextRobot = this;
 		switch(dir){
 		case NORTH:
-			nextRobot.loc.y--;
+			nextRobot.loc.move(loc.x, loc.y-1);
 			break;
 		case SOUTH:
-			nextRobot.loc.y++;
+			nextRobot.loc.move(loc.x, loc.y+1);
 			break;
 		case EAST:
-			nextRobot.loc.x++;
+			nextRobot.loc.move(loc.x+1, loc.y);
 			break;
 		case WEST:
-			nextRobot.loc.x--;
+			nextRobot.loc.move(loc.x-1, loc.y);
 			break;
 		}
 		
+		//System.out.printf("forward\n");
+		//System.out.printf("x: %d, y: %d\n", loc.x, loc.y);
 		// deduct points
-		if(offBoard())
+		if(offBoard()){
 			nextRobot.points -= 100;
+			//System.out.printf("off board\n");
+		}
+		else if(board[loc.x][loc.y] == -1 || board[loc.x][loc.y] == -2){
+			nextRobot.points -= 1;
+		}
 		else
 			nextRobot.points -= board[loc.x][loc.y];
 		return nextRobot;
@@ -81,25 +94,29 @@ public class Robot {
 		Robot nextRobot = this;
 		switch(dir){
 		case NORTH:
-			nextRobot.loc.y--;
+			nextRobot.loc.move(loc.x, loc.y-1);
 			break;
 		case SOUTH:
-			nextRobot.loc.y++;
+			nextRobot.loc.move(loc.x, loc.y+1);
 			break;
 		case EAST:
-			nextRobot.loc.x++;
+			nextRobot.loc.move(loc.x+1, loc.y);
 			break;
 		case WEST:
-			nextRobot.loc.x--;
+			nextRobot.loc.move(loc.x-1, loc.y);
 			break;
 		}
 		
+		//System.out.printf("bash\n");
+		//System.out.printf("x: %d, y: %d\n", loc.x, loc.y);
 		// deduct points
-		if(offBoard())
+		if(offBoard()){
+			//System.out.printf("offboard\n");
 			nextRobot.points -= 100;
-		else
+		}
+		else{
 			nextRobot.points -= 3;
-		
+		}
 		// must do a forward move after bash
 		nextRobot.forward();
 		return nextRobot;
@@ -113,12 +130,13 @@ public class Robot {
 	 */
 	public Robot turn(Turn turn){
 		Robot nextRobot = this;
-		if (offBoard()) {
-			nextRobot.points-=100;
-			return nextRobot;
+		if (offBoard()){
+			return null;
 		}
 		switch(turn){
 		case CLOCKWISE:
+			//System.out.printf("turn clockwise\n");
+			//System.out.printf("x: %d, y: %d\n", loc.x, loc.y);
 			switch(dir){
 			case NORTH:
 				nextRobot.dir = Direction.EAST;
@@ -135,6 +153,8 @@ public class Robot {
 			}
 			break;
 		case COUNTER_CLOCKWISE:
+			//System.out.printf("turn counter clockwise\n");
+			//System.out.printf("x: %d, y: %d\n", loc.x, loc.y);
 		switch(dir){
 			case NORTH:
 				nextRobot.dir = Direction.WEST;
@@ -153,8 +173,12 @@ public class Robot {
 		}
 		
 		// deduct points
-		//System.out.println(nextRobot.loc);
-		nextRobot.points -= (int)(Math.ceil((1.0/3.0)*(board[loc.x][loc.y])));
+		if(board[loc.x][loc.y] == -1 || board[loc.x][loc.y] == -2){
+			nextRobot.points -= 1;
+		}
+		else{
+			nextRobot.points -= (int)(Math.ceil((1.0/3.0)*(board[loc.x][loc.y])));
+		}
 		return nextRobot;
 	}
 	
@@ -172,7 +196,7 @@ public class Robot {
 	 * @return
 	 */
 	public boolean offBoard(){
-		if(loc.x < 0 || loc.y < 0 || loc.x >= board[0].length || loc.y >= board.length)
+		if(loc.x < 0 || loc.y < 0 || loc.x >= board.length || loc.y >= board[0].length)
 			return true;
 		else
 			return false;
@@ -185,4 +209,9 @@ public class Robot {
 	public Point getPoint(){
 		return loc;
 	}
+	
+	/*public static Robot copyRobot(Robot r){
+		Robot ret = new Robot(r.board, r.getPoint(), r.getPoints());
+		return ret;
+	}*/
 }
