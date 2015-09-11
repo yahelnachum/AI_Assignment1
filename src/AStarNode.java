@@ -1,7 +1,7 @@
 import java.awt.Point;
 import java.util.*;
 
-public class AStarNode {
+public class AStarNode implements Comparable<AStarNode>{
 
 	Robot r;
 	Point goal;
@@ -32,6 +32,9 @@ public class AStarNode {
 			// make children try every possible move robot can take
 			children.get(0).r.forward();
 			children.get(0).path += "forward ";
+			if(r.loc.equals(goal)){
+				r.points+=100;
+			}
 			
 			children.get(1).r.bash();
 			children.get(1).path += "bash forward ";
@@ -41,6 +44,18 @@ public class AStarNode {
 			
 			children.get(3).r.turn(Turn.COUNTER_CLOCKWISE);
 			children.get(3).path += "Counter_Clockwise ";
+		}
+	}
+
+	public int compareTo(AStarNode node) {
+		if(this.r.getPoints() > node.r.getPoints()){
+			return 1;
+		}
+		else if(this.r.getPoints() < node.r.getPoints()){
+			return -1;
+		}
+		else{
+			return 0;
 		}
 	}
 }
