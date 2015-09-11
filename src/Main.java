@@ -9,11 +9,15 @@ public class Main {
 		// System.out.printf(FileInputOutput.fileToBoard("sample board.txt"));
 		int[][] board = FileInputOutput.fileToBoard("sample board.txt");
 		int[][] board1 = FileInputOutput.fileToBoard("sample board1.txt");
+		int[][] board2 = FileInputOutput.fileToBoard("sample board2.txt");
+		int[][] board3 = FileInputOutput.fileToBoard("sample board3.txt");
 		
 		AStarSearch searcher = new AStarSearch();
 		
 		searcher.search(board);
 		searcher.search(board1);
+		searcher.search(board2);
+		searcher.search(board3);
 		
 		// Point tempPoint = new Point(0,0);
 		/*
