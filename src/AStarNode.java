@@ -5,30 +5,36 @@ import java.util.*;
   implements a generic A* search algorithm. The AStarNode
   class should be subclassed to provide searching capability.
 */
-public class AStarNode implements Comparable {
+public class AStarNode implements Comparable<AStarNode> {
 	
   AStarNode pathParent;
   Robot currentRobot;
-  float costFromStart;
-  float estimatedCostToGoal;
+  int costFromStart;
+  int estimatedCostToGoal;
 
-  AStarNode(AStarNode path, Robot robot, float cost, float estimatedCost){
-	  pathParent = path;
-	  currentRobot = robot;
-	  costFromStart = cost;
-	  estimatedCostToGoal = estimatedCost;
+  AStarNode(AStarNode path, Robot robot, int cost, int estimatedCost){
+	  this.pathParent = path;
+	  this.currentRobot = robot;
+	  this.costFromStart = cost;
+	  this.estimatedCostToGoal = estimatedCost;
   }
   
-  public float getCost() {
+  
+  AStarNode AStarNodeClone (AStarNode clonePath, Robot cloneRobot, int cloneCost, int cloneEstimatedCost){
+	  AStarNode clone = new AStarNode(clonePath, cloneRobot.cloneRobot(cloneRobot.board,  cloneRobot.loc,  cloneRobot.points), cloneCost, cloneEstimatedCost);
+	  return clone;
+  }
+  
+  public int getCost() {
     return costFromStart + estimatedCostToGoal;
   }
 
 
-  public int compareTo(Object other) {
-    float thisValue = this.getCost();
-    float otherValue = ((AStarNode)other).getCost();
+  public int compareTo(AStarNode other) {
+    int thisValue = this.getCost();
+    int otherValue = ((AStarNode)other).getCost();
 
-    float v = thisValue - otherValue;
+    int v = thisValue - otherValue;
     return (v>0)?1:(v<0)?-1:0; // sign function
   }
 
@@ -37,7 +43,7 @@ public class AStarNode implements Comparable {
     Gets the cost between this node and the specified
     adjacent (AKA "neighbor" or "child") node.
   */
-  public float getCost(AStarNode node){
+  public int getCost(AStarNode node){
 	  
 	  return 0;
   }
@@ -49,7 +55,7 @@ public class AStarNode implements Comparable {
     the true cost. The better the estimate, the more
     effecient the search.
   */
-  public float getEstimatedCost(AStarNode node){
+  public int getEstimatedCost(AStarNode node){
 	  
 	  return node.currentRobot.points;
   }
@@ -62,22 +68,26 @@ public class AStarNode implements Comparable {
   public  List<AStarNode> getNeighbors(){
 	List<AStarNode> neighbors = new ArrayList<AStarNode>();
 	
-	AStarNode nextNeighbor = this;
+	
+	AStarNode nextNeighbor = AStarNodeClone(this.pathParent,this.currentRobot, this.costFromStart, this.estimatedCostToGoal);
 	nextNeighbor.currentRobot = nextNeighbor.currentRobot.forward();
+    System.out.println("Forward" + nextNeighbor.currentRobot.loc);
 	neighbors.add(nextNeighbor);
-	
-	nextNeighbor = this;
+
+	nextNeighbor = AStarNodeClone(this.pathParent,this.currentRobot, this.costFromStart, this.estimatedCostToGoal);
 	nextNeighbor.currentRobot = nextNeighbor.currentRobot.bash();
+    System.out.println("Bash" + nextNeighbor.currentRobot.loc);
 	neighbors.add(nextNeighbor);
 	
-	nextNeighbor = this;
+	nextNeighbor = AStarNodeClone(this.pathParent,this.currentRobot, this.costFromStart, this.estimatedCostToGoal);
 	Turn nextTurn = Turn.CLOCKWISE;
 	nextNeighbor.currentRobot = nextNeighbor.currentRobot.turn(nextTurn);
+    System.out.println("CLOCKWISE" + nextNeighbor.currentRobot.loc);
+	neighbors.add(nextNeighbor);
 	
-	nextNeighbor = this;
-	nextTurn = Turn.COUNTER_CLOCKWISE;
+	nextNeighbor = AStarNodeClone(this.pathParent,this.currentRobot, this.costFromStart, this.estimatedCostToGoal);	nextTurn = Turn.COUNTER_CLOCKWISE;
 	nextNeighbor.currentRobot = nextNeighbor.currentRobot.turn(nextTurn);
-
+    System.out.println("CW" + nextNeighbor.currentRobot.loc);
 	neighbors.add(nextNeighbor);
 
 	return neighbors;

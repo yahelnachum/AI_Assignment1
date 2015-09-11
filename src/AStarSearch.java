@@ -15,16 +15,16 @@ public class AStarSearch {
     determined by the object's Comparable interface.
     The highest priority item is first in the list.
   */
-  public static class PriorityList extends LinkedList {
+  public static class PriorityList<AStarNode> extends LinkedList<AStarNode> {
 
-    public void add(Comparable object) {
+    public void add(Comparable<AStarNode> object) {
       for (int i=0; i<size(); i++) {
         if (object.compareTo(get(i)) <= 0) {
-          add(i, object);
+          add(i, (AStarNode) object);
           return;
         }
       }
-      addLast(object);
+      addLast((AStarNode) object);
     }
   }
 
@@ -49,30 +49,32 @@ public class AStarSearch {
   */
   public List<AStarNode> findPath(AStarNode startNode, AStarNode goalNode) {
 
-    PriorityList openList = new PriorityList();
+    PriorityList<AStarNode> openList = new PriorityList<AStarNode>();
     LinkedList<AStarNode> closedList = new LinkedList<AStarNode>();
 
     startNode.costFromStart = 0;
     startNode.estimatedCostToGoal =
-      startNode.getEstimatedCost(goalNode);
+    startNode.getEstimatedCost(goalNode);
     startNode.pathParent = null;
     openList.add(startNode);
-
+    
+    System.out.println(goalNode.currentRobot.loc);
     while (!openList.isEmpty()) {
       AStarNode node = (AStarNode)openList.removeFirst();
-      if (node == goalNode) {
+      System.out.println(node.currentRobot.loc);
+      if (node.currentRobot.loc == goalNode.currentRobot.loc || node.currentRobot.loc.y < 0) {
         // construct the path from start to goal
+    	System.out.println(100);
         return constructPath(goalNode);
       }
 
       List<AStarNode> neighbors = node.getNeighbors();
-      for (int i=0; i<neighbors.size(); i++) {
-        AStarNode neighborNode =
-          (AStarNode)neighbors.get(i);
+      for (int i=0; i < neighbors.size(); i++) {
+        AStarNode neighborNode = (AStarNode)neighbors.get(i);
         boolean isOpen = openList.contains(neighborNode);
         boolean isClosed =
           closedList.contains(neighborNode);
-        float costFromStart = node.costFromStart +
+        int costFromStart = node.costFromStart +
           node.getCost(neighborNode);
 
         // check if the neighbor node has not been

@@ -31,12 +31,15 @@ public class Robot {
 	 * @param init_loc Gives the robot an initial location
 	 */
 	Robot(int[][] init_board, Point init_loc, int init_points){
-		board = init_board;
-		loc = init_loc;
-		dir = Direction.NORTH;
-		points = init_points;
+		this.board = init_board;
+		this.loc = init_loc;
+		this.dir = Direction.NORTH;
+		this.points = init_points;
 	}
 	
+	Robot cloneRobot(int[][] cloneBoard, Point cloneLoc, int clonePoints){
+		return new Robot(cloneBoard, cloneLoc, clonePoints);
+	}
 	// moves robot forward in the direction it is facing
 	// points deducted is equal to the number in the square that the robot is entering
 	/**
@@ -49,16 +52,16 @@ public class Robot {
 		Robot nextRobot = this;
 		switch(dir){
 		case NORTH:
-			nextRobot.loc.move(0, 1);
+			nextRobot.loc.y--;
 			break;
 		case SOUTH:
-			nextRobot.loc.move(0, -1);
+			nextRobot.loc.y++;
 			break;
 		case EAST:
-			nextRobot.loc.move(1, 0);
+			nextRobot.loc.x++;
 			break;
 		case WEST:
-			nextRobot.loc.move(-1, 0);
+			nextRobot.loc.x--;
 			break;
 		}
 		
@@ -78,16 +81,16 @@ public class Robot {
 		Robot nextRobot = this;
 		switch(dir){
 		case NORTH:
-			nextRobot.loc.move(0, 1);
+			nextRobot.loc.y--;
 			break;
 		case SOUTH:
-			nextRobot.loc.move(0, -1);
+			nextRobot.loc.y++;
 			break;
 		case EAST:
-			nextRobot.loc.move(1, 0);
+			nextRobot.loc.x++;
 			break;
 		case WEST:
-			nextRobot.loc.move(-1, 0);
+			nextRobot.loc.x--;
 			break;
 		}
 		
@@ -110,6 +113,10 @@ public class Robot {
 	 */
 	public Robot turn(Turn turn){
 		Robot nextRobot = this;
+		if (offBoard()) {
+			nextRobot.points-=100;
+			return nextRobot;
+		}
 		switch(turn){
 		case CLOCKWISE:
 			switch(dir){
@@ -146,6 +153,7 @@ public class Robot {
 		}
 		
 		// deduct points
+		//System.out.println(nextRobot.loc);
 		nextRobot.points -= (int)(Math.ceil((1.0/3.0)*(board[loc.x][loc.y])));
 		return nextRobot;
 	}
@@ -164,7 +172,7 @@ public class Robot {
 	 * @return
 	 */
 	public boolean offBoard(){
-		if(loc.x < 0 || loc.y < 0 || loc.x >= board.length || loc.y >= board[0].length)
+		if(loc.x < 0 || loc.y < 0 || loc.x >= board[0].length || loc.y >= board.length)
 			return true;
 		else
 			return false;
