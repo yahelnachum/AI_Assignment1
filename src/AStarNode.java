@@ -51,8 +51,8 @@ public class AStarNode implements Comparable<AStarNode> {
 	 // System.out.println(loc.x + " " + loc.y + " " + node.currentRobot.board[loc.x][loc.y]);
 	  if (node.currentRobot.offBoard(loc)) return 100;
 	  if (node.action.equals("Forward")) return node.currentRobot.board[loc.x][loc.y];
-	  if (node.action.equals("CW") || node.action.equals("CCW")) return (int) Math.ceil(node.currentRobot.board[loc.x][loc.y] / 3);
-	  if (node.action.equals("Bash")) return (3 + node.currentRobot.board[loc.x][loc.y]);
+	  if (node.action.equals("CW") || node.action.equals("CCW")) return (int) Math.ceil((1.0/3.0) * (node.currentRobot.board[loc.x][loc.y]));
+	  if (node.action.equals("Bash Forward")) return (3 + node.currentRobot.board[loc.x][loc.y]);
 	  return node.currentRobot.points - this.currentRobot.points;
   }
 
@@ -63,7 +63,7 @@ public class AStarNode implements Comparable<AStarNode> {
   */
   public int getEstimatedCost(AStarNode node){
 	  Heuristics h = new Heuristics();
-	  return h.heuristic5(this.currentRobot.loc.x, this.currentRobot.loc.y, node.currentRobot.loc.x, node.currentRobot.loc.y);
+	  return h.heuristic1(this.currentRobot.loc.x, this.currentRobot.loc.y, node.currentRobot.loc.x, node.currentRobot.loc.y);
   }
 
   public AStarNode movingForward(AStarNode node){

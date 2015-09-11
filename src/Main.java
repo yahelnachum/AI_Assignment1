@@ -8,7 +8,7 @@ public class Main {
 		int [][] board1 = FileInputOutput.fileToBoard("sample board.txt");
 		int n = board1[0].length, m = board1.length;
 		int [][] board = new int [n][m];
-		System.out.println(n + " " + m);
+		//System.out.println(n + " " + m);
 		for (int i = 0; i < n; i++){
 			for (int j = 0;j < m; j++){
 				board[i][j] = board1[j][i];
@@ -17,7 +17,7 @@ public class Main {
 		Point tempPoint = new Point(0,0,0);
 		AStarNode startNode = new AStarNode(new Robot(board, tempPoint, -1));
 		AStarNode endNode = new AStarNode(new Robot(board, tempPoint, -1));
-		System.out.println(board[2][1]);
+		//System.out.println(board[2][1]);
 		
 		for(int i = 0; i < board.length; i++){
 			for(int j = 0; j < board[0].length; j++){
@@ -41,7 +41,13 @@ public class Main {
 	  
 		List<AStarNode> result = new AStarSearch().findPath(startNode, endNode);
 		if (result == null) System.out.println(0);
-		System.out.println(result.size());
+		int count = 0;
+		for (int i = 0; i < result.size(); i++){
+			if (result.get(i).action.equals("Bash Forward")) count+=2;
+			else count++;
+		}
+		System.out.println("Number of actions: " + count);
+		System.out.println("Number of nodes: " + result.size());
 		for (int i = 0; i < result.size(); i++){
 			//System.out.println(i);
 			if (result.get(i) == null) System.out.println(0);

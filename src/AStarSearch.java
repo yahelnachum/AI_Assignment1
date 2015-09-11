@@ -58,7 +58,7 @@ public class AStarSearch {
     startNode.pathParent = null;
     openList.add(startNode);
     
-    System.out.println(goalNode.currentRobot.loc);
+    //System.out.println(goalNode.currentRobot.loc);
     int count = 0;
     while (!openList.isEmpty()) {
       AStarNode node = (AStarNode)openList.removeFirst();
@@ -66,10 +66,11 @@ public class AStarSearch {
       if (count == 5){
     	  return null;
       }
-      System.out.println(node.action + " " + node.costFromStart + " " + node.currentRobot.loc.x + " " + node.currentRobot.loc.y);
+      //System.out.println(node.action + " " + node.costFromStart + " " + node.currentRobot.loc.x + " " + node.currentRobot.loc.y);
       if (node.currentRobot.loc.x == goalNode.currentRobot.loc.x && node.currentRobot.loc.y == goalNode.currentRobot.loc.y) {
         // construct the path from start to goal
-    	System.out.println(100);
+    	//System.out.println("Points: " + node.costFromStart);
+    	System.out.println("Points: " + (100 - node.costFromStart - 2));
         return constructPath(node);
       }
 
@@ -82,7 +83,7 @@ public class AStarSearch {
         
         int costFromStart = node.costFromStart + node.getCost(neighborNode);
         
-        System.out.println("Cost from start :" + costFromStart + " Neighbor cost from node " + node.getCost(neighborNode) + " " + neighborNode.action);
+        //System.out.println("Cost from start :" + costFromStart + " Neighbor cost from node " + node.getCost(neighborNode) + " " + neighborNode.action);
         // check if the neighbor node has not been
         // traversed or if a shorter path to this
         // neighbor node is found.
