@@ -78,6 +78,9 @@ public class Robot {
 			nextRobot.points -= 100;
 			//System.out.printf("off board\n");
 		}
+		else if(board[loc.x][loc.y] == -1 || board[loc.x][loc.y] == -2){
+			nextRobot.points -= 1;
+		}
 		else
 			nextRobot.points -= board[loc.x][loc.y];
 		return nextRobot;
@@ -167,7 +170,12 @@ public class Robot {
 		}
 		
 		// deduct points
-		nextRobot.points -= (int)(Math.ceil((1.0/3.0)*(board[loc.x][loc.y])));
+		if(board[loc.x][loc.y] == -1 || board[loc.x][loc.y] == -2){
+			nextRobot.points -= 1;
+		}
+		else{
+			nextRobot.points -= (int)(Math.ceil((1.0/3.0)*(board[loc.x][loc.y])));
+		}
 		return nextRobot;
 	}
 	

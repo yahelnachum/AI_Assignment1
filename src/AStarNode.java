@@ -71,10 +71,10 @@ public class AStarNode implements Comparable<AStarNode>{
 
 	public int compareTo(AStarNode node) {
 		if(this.r.getPoints() > node.r.getPoints()){
-			return 1;
+			return -1;
 		}
 		else if(this.r.getPoints() < node.r.getPoints()){
-			return -1;
+			return 1;
 		}
 		else{
 			return 0;
