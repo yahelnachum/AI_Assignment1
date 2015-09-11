@@ -7,31 +7,39 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//System.out.printf(FileInputOutput.fileToBoard("sample board.txt"));
-		int [][] board = FileInputOutput.fileToBoard("sample board.txt");
-		Point tempPoint = new Point(0,0);
-		AStarNode startNode = new AStarNode(null, new Robot(board, tempPoint, -1),0 ,0);
-		AStarNode endNode = new AStarNode(null , new Robot(board, tempPoint, -1), 0, 0);
+		int [][] board = FileInputOutput.fileToBoard("sample board1.txt");
+		//Point tempPoint = new Point(0,0);
+		/*AStarNode startNode = new AStarNode(null, new Robot(board, tempPoint, -1),0 ,0);
+		AStarNode endNode = new AStarNode(null , new Robot(board, tempPoint, -1), 0, 0);*/
+		
+		Point start = new Point(0, 0);
+		Point goal = new Point(0, 0);
 		
 		for(int j = 0; j < board[0].length; j++){
 			for(int i = 0; i < board.length; i++){
-				if (board[i][j] == -2){
-					Point startLoc = new Point(i,j);
-					Robot startRobot = new Robot (board, startLoc, -1);
-					startNode = new AStarNode(null, startRobot, 0, 0);
-				}
-				
-				if (board[i][j] == -1){
-					Point endLoc = new Point(i,j);
-					Robot endRobot = new Robot(board, endLoc, -1);
-					endNode = new AStarNode(null , endRobot, 0, 0);
-				}
-				
 				System.out.printf("%3d", board[i][j]);
+				if(board[i][j] == State.START)
+					start = new Point(i, j);
+				else if (board[i][j] == State.GOAL)
+					goal = new Point(i, j);
 			}
 			System.out.printf("\n");
 		}
-	  
-		List<AStarNode> result = new AStarSearch().findPath(startNode, endNode);
+		
+		AStarNode a = new AStarNode(new Robot(board, start, 0), goal);
+		ArrayList<AStarNode> list = new ArrayList<AStarNode>();
+		list.add(a);
+		
+		while(!(list.get(0).r.loc.x == goal.x && list.get(0).r.loc.y == goal.y)){
+			AStarNode b = list.remove(0);
+			b.search();
+			list.addAll(b.children);
+		}
+		System.out.printf("found\n");
+		System.out.printf(list.get(0).path + "\n");
+		System.out.printf(list.get(0).r.getPoints()+"");
+		
+		//AStarNode.findGoalPath(a, goal);
 		
 	}
 	
