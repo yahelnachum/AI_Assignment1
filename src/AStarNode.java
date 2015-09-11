@@ -62,8 +62,8 @@ public class AStarNode implements Comparable<AStarNode> {
     goal node.
   */
   public int getEstimatedCost(AStarNode node){
-	  
-	  return 0;
+	  Heuristics h = new Heuristics();
+	  return h.heuristic5(this.currentRobot.loc.x, this.currentRobot.loc.y, node.currentRobot.loc.x, node.currentRobot.loc.y);
   }
 
   public AStarNode movingForward(AStarNode node){
