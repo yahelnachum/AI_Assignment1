@@ -1,4 +1,4 @@
-import java.util.List;
+import java.util.*;
 
 /**
   The AStarNode class, along with the AStarSearch class,
@@ -60,7 +60,7 @@ public class AStarNode implements Comparable {
     of this node.
   */
   public  List<AStarNode> getNeighbors(){
-	List<AStarNode> neighbors = null;
+	List<AStarNode> neighbors = new ArrayList<AStarNode>();
 	
 	AStarNode nextNeighbor = this;
 	nextNeighbor.currentRobot = nextNeighbor.currentRobot.forward();
