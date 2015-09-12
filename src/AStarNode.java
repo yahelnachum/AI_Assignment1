@@ -44,7 +44,7 @@ public class AStarNode implements Comparable<AStarNode> {
 
 
   /**
-    Gets the cost between this node and the adjacent node.
+    Calculate the cost between current node and adjacent node.
   */
   public int getCost(AStarNode node){
 	  Point loc = node.currentRobot.loc;
@@ -58,12 +58,12 @@ public class AStarNode implements Comparable<AStarNode> {
 
 
   /**
-    Gets the estimated cost between this node and the
+    Calculate the estimated cost between current node and the
     goal node.
   */
   public int getEstimatedCost(AStarNode node){
 	  Heuristics h = new Heuristics();
-	  return h.heuristic1(this.currentRobot.loc.x, this.currentRobot.loc.y, node.currentRobot.loc.x, node.currentRobot.loc.y);
+	  return h.heuristic5(this.currentRobot.loc.x, this.currentRobot.loc.y, node.currentRobot.loc.x, node.currentRobot.loc.y);
   }
 
   public AStarNode movingForward(AStarNode node){
