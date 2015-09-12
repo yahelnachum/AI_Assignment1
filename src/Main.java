@@ -3,7 +3,7 @@ import java.lang.Math;
 import java.util.*;
 
 public class Main {
-
+	long startTime5 = System.currentTimeMillis();
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// System.out.printf(FileInputOutput.fileToBoard("sample board.txt"));
@@ -16,15 +16,44 @@ public class Main {
 
 		AStarSearch searcher = new AStarSearch();
 
-		for (int i = 1; i <= 6; i++) {
-			searcher.search(board, i);
-			searcher.search(board1, i);
-			searcher.search(board2, i);
-			searcher.search(board3, i);
-			searcher.search(board4, i);
-			searcher.search(board5, i);
-		}
-
+//		for (int i = 1; i <= 6; i++) {
+			long startTime = System.currentTimeMillis();
+			searcher.search(board, 1);
+			long endTime   = System.currentTimeMillis();
+			long totalTime = endTime - startTime;
+			System.out.println("Running time :" + totalTime);
+			System.out.println("End");
+			long startTime1 = System.currentTimeMillis();
+			searcher.search(board1, 1);
+			long endTime1   = System.currentTimeMillis();
+			long totalTime1 = endTime1 - startTime1;
+			System.out.println("Running time 1 :" + totalTime1);
+			System.out.println("End1\n");
+			long startTime2 = System.currentTimeMillis();
+			searcher.search(board2, 1);
+			long endTime2   = System.currentTimeMillis();
+			long totalTime2 = endTime2 - startTime2;
+			System.out.println("Running time 2 :" + totalTime2);
+			System.out.println("End2\n");
+			long startTime3 = System.currentTimeMillis();
+			searcher.search(board3, 1);
+			long endTime3   = System.currentTimeMillis();
+			long totalTime3 = endTime3 - startTime3;
+			System.out.println("Running time 3 :" + totalTime3);
+			System.out.println("End3\n");
+			long startTime4 = System.currentTimeMillis();
+			searcher.search(board4, 1);
+			long endTime4   = System.currentTimeMillis();
+			long totalTime4 = endTime4 - startTime4;
+			System.out.println("Running time 4 :" + totalTime4);
+			System.out.println("End4\n");
+			long startTime5 = System.currentTimeMillis();
+			searcher.search(board5, 1);
+			long endTime5   = System.currentTimeMillis();
+			long totalTime5 = endTime5 - startTime5;
+			System.out.println("Running time 5 :" + totalTime5);
+			System.out.println("End5\n");
+//		}
 		// Point tempPoint = new Point(0,0);
 		/*
 		 * AStarNode startNode = new AStarNode(null, new Robot(board, tempPoint,
