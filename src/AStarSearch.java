@@ -5,6 +5,7 @@ import java.util.Collections;
 
 public class AStarSearch {
 	public void search(int[][] board, int heuristic){
+		System.out.println(heuristic);
 		Point start = new Point(0, 0);
 		Point goal = new Point(0, 0);
 
@@ -120,6 +121,7 @@ public class AStarSearch {
 		// System.out.printf(list.get(0).path + "\n");
 		System.out.printf(goalRobo.path + "\n");
 		System.out.printf(goalRobo.r.getPoints() + "" + "\n");
+		System.out.println("nodes expanded: " + (list.size() + visited.size()));
 		System.out.printf("_____________________" + "\n");
 
 		// AStarNode.findGoalPath(a, goal);

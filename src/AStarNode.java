@@ -18,6 +18,7 @@ public class AStarNode implements Comparable<AStarNode> {
 		children = new ArrayList<AStarNode>();
 		this.path = n.path;
 		this.visited = n.visited;
+		this.heuristic = n.heuristic;
 	}
 
 	AStarNode(Robot r, Point goal, int heuristic) {
@@ -68,6 +69,7 @@ public class AStarNode implements Comparable<AStarNode> {
 
 	public int compareTo(AStarNode node) {
 		Heuristics h = new Heuristics();
+		//System.out.println(this.heuristic);
 		switch (this.heuristic) {
 		case 1:
 			if ((this.r.getPoints() - h.heuristic1(this.r.getPoint().x,
@@ -103,6 +105,20 @@ public class AStarNode implements Comparable<AStarNode> {
 					(node.r	.getPoints() - h.heuristic3(this.r.getPoint().x,
 					this.r.getPoint().y, this.goal.x, this.goal.y))) {
 				return -1;
+			} else if ((this.r.getPoints() - h.heuristic3(this.r.getPoint().x,
+					this.r.getPoint().y, this.goal.x, this.goal.y)) < 
+					(node.r	.getPoints() - h.heuristic3(this.r.getPoint().x,
+					this.r.getPoint().y, this.goal.x, this.goal.y))) {
+				return 1;
+			} else {
+				return 0;
+			}
+		case 4:
+			if ((this.r.getPoints() - h.heuristic4(this.r.getPoint().x,
+					this.r.getPoint().y, this.goal.x, this.goal.y)) > 
+					(node.r	.getPoints() - h.heuristic4(this.r.getPoint().x,
+					this.r.getPoint().y, this.goal.x, this.goal.y))) {
+				return -1;
 			} else if ((this.r.getPoints() - h.heuristic4(this.r.getPoint().x,
 					this.r.getPoint().y, this.goal.x, this.goal.y)) < 
 					(node.r	.getPoints() - h.heuristic4(this.r.getPoint().x,
@@ -111,43 +127,30 @@ public class AStarNode implements Comparable<AStarNode> {
 			} else {
 				return 0;
 			}
-		case 4:
+		case 5:
 			if ((this.r.getPoints() - h.heuristic5(this.r.getPoint().x,
 					this.r.getPoint().y, this.goal.x, this.goal.y)) > 
 					(node.r	.getPoints() - h.heuristic5(this.r.getPoint().x,
 					this.r.getPoint().y, this.goal.x, this.goal.y))) {
 				return -1;
-			} else if ((this.r.getPoints() - h.heuristic6(this.r.getPoint().x,
+			} else if ((this.r.getPoints() - h.heuristic5(this.r.getPoint().x,
 					this.r.getPoint().y, this.goal.x, this.goal.y)) < 
-					(node.r	.getPoints() - h.heuristic6(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y))) {
-				return 1;
-			} else {
-				return 0;
-			}
-		case 5:
-			if ((this.r.getPoints() - h.heuristic1(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y)) > 
-					(node.r	.getPoints() - h.heuristic1(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y))) {
-				return -1;
-			} else if ((this.r.getPoints() - h.heuristic1(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y)) < 
-					(node.r	.getPoints() - h.heuristic1(this.r.getPoint().x,
+					(node.r	.getPoints() - h.heuristic5(this.r.getPoint().x,
 					this.r.getPoint().y, this.goal.x, this.goal.y))) {
 				return 1;
 			} else {
 				return 0;
 			}
 		case 6:
-			if ((this.r.getPoints() - h.heuristic1(this.r.getPoint().x,
+			//System.out.println("here");
+			if ((this.r.getPoints() - h.heuristic6(this.r.getPoint().x,
 					this.r.getPoint().y, this.goal.x, this.goal.y)) > 
-					(node.r	.getPoints() - h.heuristic1(this.r.getPoint().x,
+					(node.r	.getPoints() - h.heuristic6(this.r.getPoint().x,
 					this.r.getPoint().y, this.goal.x, this.goal.y))) {
 				return -1;
-			} else if ((this.r.getPoints() - h.heuristic1(this.r.getPoint().x,
+			} else if ((this.r.getPoints() - h.heuristic6(this.r.getPoint().x,
 					this.r.getPoint().y, this.goal.x, this.goal.y)) < 
-					(node.r	.getPoints() - h.heuristic1(this.r.getPoint().x,
+					(node.r	.getPoints() - h.heuristic6(this.r.getPoint().x,
 					this.r.getPoint().y, this.goal.x, this.goal.y))) {
 				return 1;
 			} else {
