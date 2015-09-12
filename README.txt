@@ -81,11 +81,13 @@ Implementation Details:
 					the same fashion.
 
 How to build the program:	To build the program you must take the following steps on the command line: 
-							"(path to javac.exe)\javac.exe" -g AStar.java
+							"(path to javac.exe)\javac.exe" -g src\*
+							cd src
 							java AStar "board name.txt" (heuristic integer)
 							
 							Ex.
-							"C:\Program Files\Java\jdk####\bin\javac.exe" -g AStar.java
+							"C:\Program Files\Java\jdk####\bin\javac.exe" -g src\*
+							cd src
 							java AStar "sample board1.txt" 3
 
 Program Source:			
