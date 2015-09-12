@@ -4,7 +4,7 @@ import java.util.Collections;
 
 
 public class AStarSearch {
-	public void search(int[][] board){
+	public void search(int[][] board, int heuristic){
 		Point start = new Point(0, 0);
 		Point goal = new Point(0, 0);
 
@@ -19,7 +19,7 @@ public class AStarSearch {
 			System.out.printf("\n");
 		}
 
-		AStarNode a = new AStarNode(new Robot(board, start, 0), goal);
+		AStarNode a = new AStarNode(new Robot(board, start, 0), goal, heuristic);
 		ArrayList<AStarNode> list = new ArrayList<AStarNode>();
 		ArrayList<AStarNode> visited = new ArrayList<AStarNode>();
 		list.add(a);
@@ -28,8 +28,8 @@ public class AStarSearch {
 		while (!list.isEmpty()
 				&& !(list.get(0).r.loc.x == goal.x && list.get(0).r.loc.y == goal.y)) {
 
-			System.out.println("BEFORE SORT");
-			System.out.println(list.get(0).r.getPoints());
+			//System.out.println("BEFORE SORT"); //
+			//System.out.println(list.get(0).r.getPoints()); //
 			Collections.sort(list);
 
 			// z++;
@@ -39,8 +39,8 @@ public class AStarSearch {
 			boolean goAhead = true;
 			//System.out.println(visited.size());
 			//System.out.println(list.size());
-			System.out.println("AFTER SORT");
-			System.out.println(list.get(0).r.getPoints());
+			//System.out.println("AFTER SORT"); //
+			//System.out.println(list.get(0).r.getPoints()); //
 			while ((i < visited.size()) && !visit) {
 				// System.out.println(visited.size());
 				//System.out.println(list.size());
@@ -52,7 +52,7 @@ public class AStarSearch {
 					visit = true;
 					goAhead = false;
 					list.remove(0);
-					System.out.println("removed");
+					//System.out.println("removed");//
 				} else {
 					goAhead = true;
 					// System.out.println("goahead");
@@ -89,7 +89,7 @@ public class AStarSearch {
 						visit = true;
 						goAhead = false;
 						list.remove(0);
-						System.out.println("removed");
+						//System.out.println("removed");//
 					} else {
 						goAhead = true;
 						// System.out.println("goahead");
