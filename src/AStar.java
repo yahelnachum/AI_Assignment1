@@ -2,16 +2,16 @@ import java.awt.Point;
 import java.lang.Math;
 import java.util.*;
 
-public class Main {
+public class AStar {
 	long startTime5 = System.currentTimeMillis();
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// System.out.printf(FileInputOutput.fileToBoard("sample board.txt"));
 
-		/*String fileName = args[0];
+		String fileName = args[0];
 		String heuristicS = args[1];
-		int heuristicI = heuristicS.charAt(0) - '0';*/
+		int heuristicI = heuristicS.charAt(0) - '0';
 
 		int[][] board = FileInputOutput.fileToBoard("sample board.txt");
 		int[][] board1 = FileInputOutput.fileToBoard("sample board1.txt");
