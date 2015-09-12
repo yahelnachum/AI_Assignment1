@@ -12,8 +12,13 @@ public class AStar {
 		String fileName = args[0];
 		String heuristicS = args[1];
 		int heuristicI = heuristicS.charAt(0) - '0';
+		
+		int[][] board = FileInputOutput.fileToBoard(fileName);
+		AStarSearch searcher = new AStarSearch();
+		
+		searcher.search(board, heuristicI);
 
-		int[][] board = FileInputOutput.fileToBoard("sample board.txt");
+		/*int[][] board = FileInputOutput.fileToBoard("sample board.txt");
 		int[][] board1 = FileInputOutput.fileToBoard("sample board1.txt");
 		int[][] board2 = FileInputOutput.fileToBoard("sample board2.txt");
 		int[][] board3 = FileInputOutput.fileToBoard("sample board3.txt");
@@ -59,7 +64,10 @@ public class AStar {
 			long totalTime5 = endTime5 - startTime5;
 			System.out.println("Running time 5 :" + totalTime5);
 			System.out.println("End5\n");
-		}
+		}*/
+		
+		
+		
 		// Point tempPoint = new Point(0,0);
 		/*
 		 * AStarNode startNode = new AStarNode(null, new Robot(board, tempPoint,
