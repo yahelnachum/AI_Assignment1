@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Main {
-
+	static long startTime = System.currentTimeMillis();
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//System.out.printf(FileInputOutput.fileToBoard("sample board.txt"));
@@ -54,6 +54,8 @@ public class Main {
 			else
 			System.out.print(result.get(i).action + " ");
 		}
+		long endTime   = System.currentTimeMillis();
+		long totalTime = endTime - startTime;
+		System.out.println("\nTotal running time:" + totalTime);
 	}
-	
 }
