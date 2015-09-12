@@ -31,7 +31,7 @@ public class AStarNode implements Comparable<AStarNode> {
 	public void search() {
 		if (!r.offBoard()) {
 
-			//System.out.printf("size %d\n", visited.size());//
+			// System.out.printf("size %d\n", visited.size());//
 
 			/*
 			 * boolean loc_visited = false; for(int i = 0; i < visited.size();
@@ -69,89 +69,89 @@ public class AStarNode implements Comparable<AStarNode> {
 
 	public int compareTo(AStarNode node) {
 		Heuristics h = new Heuristics();
-		//System.out.println(this.heuristic);
+		// System.out.println(this.heuristic);
 		switch (this.heuristic) {
 		case 1:
 			if ((this.r.getPoints() - h.heuristic1(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y)) > 
-					(node.r	.getPoints() - h.heuristic1(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y))) {
+					this.r.getPoint().y, this.goal.x, this.goal.y)) > (node.r
+					.getPoints() - h.heuristic1(node.r.getPoint().x,
+					node.r.getPoint().y, node.goal.x, node.goal.y))) {
 				return -1;
 			} else if ((this.r.getPoints() - h.heuristic1(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y)) < 
-					(node.r	.getPoints() - h.heuristic1(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y))) {
+					this.r.getPoint().y, this.goal.x, this.goal.y)) < (node.r
+					.getPoints() - h.heuristic1(node.r.getPoint().x,
+					node.r.getPoint().y, node.goal.x, node.goal.y))) {
 				return 1;
 			} else {
 				return 0;
 			}
 		case 2:
 			if ((this.r.getPoints() - h.heuristic2(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y)) > 
-					(node.r	.getPoints() - h.heuristic2(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y))) {
+					this.r.getPoint().y, this.goal.x, this.goal.y)) > (node.r
+					.getPoints() - h.heuristic2(node.r.getPoint().x,
+					node.r.getPoint().y, node.goal.x, node.goal.y))) {
 				return -1;
 			} else if ((this.r.getPoints() - h.heuristic2(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y)) < 
-					(node.r	.getPoints() - h.heuristic2(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y))) {
+					this.r.getPoint().y, this.goal.x, this.goal.y)) < (node.r
+					.getPoints() - h.heuristic2(node.r.getPoint().x,
+					node.r.getPoint().y, node.goal.x, node.goal.y))) {
 				return 1;
 			} else {
 				return 0;
 			}
 		case 3:
 			if ((this.r.getPoints() - h.heuristic3(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y)) > 
-					(node.r	.getPoints() - h.heuristic3(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y))) {
+					this.r.getPoint().y, this.goal.x, this.goal.y)) > (node.r
+					.getPoints() - h.heuristic3(node.r.getPoint().x,
+					node.r.getPoint().y, node.goal.x, node.goal.y))) {
 				return -1;
 			} else if ((this.r.getPoints() - h.heuristic3(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y)) < 
-					(node.r	.getPoints() - h.heuristic3(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y))) {
+					this.r.getPoint().y, this.goal.x, this.goal.y)) < (node.r
+					.getPoints() - h.heuristic3(node.r.getPoint().x,
+					node.r.getPoint().y, node.goal.x, node.goal.y))) {
 				return 1;
 			} else {
 				return 0;
 			}
 		case 4:
 			if ((this.r.getPoints() - h.heuristic4(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y)) > 
-					(node.r	.getPoints() - h.heuristic4(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y))) {
+					this.r.getPoint().y, this.goal.x, this.goal.y)) > (node.r
+					.getPoints() - h.heuristic4(node.r.getPoint().x,
+					node.r.getPoint().y, node.goal.x, node.goal.y))) {
 				return -1;
 			} else if ((this.r.getPoints() - h.heuristic4(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y)) < 
-					(node.r	.getPoints() - h.heuristic4(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y))) {
+					this.r.getPoint().y, this.goal.x, this.goal.y)) < (node.r
+					.getPoints() - h.heuristic4(node.r.getPoint().x,
+					node.r.getPoint().y, node.goal.x, node.goal.y))) {
 				return 1;
 			} else {
 				return 0;
 			}
 		case 5:
 			if ((this.r.getPoints() - h.heuristic5(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y)) > 
-					(node.r	.getPoints() - h.heuristic5(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y))) {
+					this.r.getPoint().y, this.goal.x, this.goal.y)) > (node.r
+					.getPoints() - h.heuristic5(node.r.getPoint().x,
+					node.r.getPoint().y, node.goal.x, node.goal.y))) {
 				return -1;
 			} else if ((this.r.getPoints() - h.heuristic5(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y)) < 
-					(node.r	.getPoints() - h.heuristic5(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y))) {
+					this.r.getPoint().y, this.goal.x, this.goal.y)) < (node.r
+					.getPoints() - h.heuristic5(node.r.getPoint().x,
+					node.r.getPoint().y, node.goal.x, node.goal.y))) {
 				return 1;
 			} else {
 				return 0;
 			}
 		case 6:
-			//System.out.println("here");
+			// System.out.println("here");
 			if ((this.r.getPoints() - h.heuristic6(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y)) > 
-					(node.r	.getPoints() - h.heuristic6(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y))) {
+					this.r.getPoint().y, this.goal.x, this.goal.y)) > (node.r
+					.getPoints() - h.heuristic6(node.r.getPoint().x,
+					node.r.getPoint().y, node.goal.x, node.goal.y))) {
 				return -1;
 			} else if ((this.r.getPoints() - h.heuristic6(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y)) < 
-					(node.r	.getPoints() - h.heuristic6(this.r.getPoint().x,
-					this.r.getPoint().y, this.goal.x, this.goal.y))) {
+					this.r.getPoint().y, this.goal.x, this.goal.y)) < (node.r
+					.getPoints() - h.heuristic6(node.r.getPoint().x,
+					node.r.getPoint().y, node.goal.x, node.goal.y))) {
 				return 1;
 			} else {
 				return 0;
