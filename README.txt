@@ -56,7 +56,7 @@ Interfaces:			how the program interacts with users, data or programs
 				used as a definition of the terrain complexity for the 
 				robot.
 				
-	Program/Module ***** still need to add ******
+	Program/Module The program does not interact with any other programs
 
 Implementation Details:
 	Data			The board is represented as a 2d integer array. The 
@@ -65,9 +65,20 @@ Implementation Details:
 					time in the path, and the sequence of actions taken to 
 					get to that point.
 					
-	Variables		***** still need to add ******key variables and their scopes
+	Variables		Direction and Turn variables are enumerated so that the 
+					programmer can quickly understand what the robot is doing 
+					in its action functions. Ex. When the robot is facing 
+					Direction.NORTH and it goes forward it changes its 
+					position by delta y -1. Or when the robot is facing 
+					Direction.WEST and does a Turn.COUNTER_CLOCKWISE move it 
+					is now in the Direction.SOUTH.
 	 
-	Algorithm		***** still need to add ******implementation details of algorithm(s) used
+	Algorithm		The A* algorithm was used to decide what children nodes 
+					to expand based on their current cost + the heuristic cost. 
+					The cost that is lowest is expanded first which will 
+					subsequently add on to the cost giving costs that where 
+					larger before to possible be smaller and be expanded in 
+					the same fashion.
 
 How to build the program:	To build the program you must take the following steps on the command line: 
 							"(path to javac.exe)\javac.exe" -g AStar.java
